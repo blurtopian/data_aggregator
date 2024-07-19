@@ -20,7 +20,7 @@ class Submission {
     try {
 
       console.log(`Downloading data from ${url}...`);
-      let result = await downloadBinanceData(url, filename);
+      let result = await this.downloadBinanceData(url, filename);
       console.log(`Data saved to ${filename}`);
 
       const cid = await this.storeFile(result);
