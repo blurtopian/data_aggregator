@@ -1,6 +1,6 @@
 const { namespaceWrapper } = require('@_koii/namespace-wrapper');
-const { simpleClonerTask } = require('../cloner/SimpleClonerTask');
 const { downloadBinanceData } = require('./utils/download')
+const { readChecksum } = require('./utils/checksumUtil')
 
 // Define the URL structure for Binance Vision data
 const BASE_URL = 'https://data.binance.vision/data/spot/daily/klines/';
@@ -23,25 +23,13 @@ class Audit {
     try {
       const basePath = await namespaceWrapper.getBasePath();
       await downloadBinanceData(urlChecksum, `${basePath}/${filenameChecksum}`);
-      const binanceChecksum = await this.readChecksum(`${basePath}/${filenameChecksum}`);
+      const binanceChecksum = await readChecksum(`${basePath}/${filenameChecksum}`);
       console.log('binanceChecksum', binanceChecksum)
       return submission_checksum == binanceChecksum;
     } catch (e) {
       console.log('Error in validate:', e);
       return false;
     }
-  }
-
-  async readChecksum(filePath) {
-    return new Promise((resolve, reject) => {
-      fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data.trim()); // Remove any leading/trailing whitespace
-        }
-      });
-    });
   }
 
   async auditTask(roundNumber) {
