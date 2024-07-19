@@ -1,5 +1,16 @@
 const fs = require('fs');
-const axios = require('axios');
+const crypto = require('crypto');
+
+async function computeChecksum(filePath, algorithm = 'sha256') {
+  return new Promise((resolve, reject) => {
+    const hash = crypto.createHash(algorithm);
+    const stream = fs.createReadStream(filePath);
+
+    stream.on('data', data => hash.update(data));
+    stream.on('end', () => resolve(hash.digest('hex')));
+    stream.on('error', reject);
+  });
+}
 
 async function readChecksum(filePath) {
   return new Promise((resolve, reject) => {
@@ -14,5 +25,6 @@ async function readChecksum(filePath) {
 }
 
 module.exports =  {
-  readChecksum
+  computeChecksum,
+  readChecksum,
 };

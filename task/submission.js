@@ -1,10 +1,10 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
 const { namespaceWrapper } = require('@_koii/namespace-wrapper');
 const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
 const { downloadBinanceData } = require('./utils/download')
+const { computeChecksum } = require('./utils/checksumUtil')
 
 // Define the URL structure for Binance Vision data
 const BASE_URL = 'https://data.binance.vision/data/spot/daily/klines/';
@@ -30,7 +30,7 @@ class Submission {
       
       console.log(`Downloading data from ${url}...`);
       await downloadBinanceData(url, `${basePath}/${filename}`);
-      const checksum = await this.computeChecksum(`${basePath}/${filename}`);
+      const checksum = await computeChecksum(`${basePath}/${filename}`);
       console.log(`Data saved to ${basePath}/${filename}`);
       console.log(`CHECKSUM ${checksum}`);
 
@@ -62,17 +62,6 @@ class Submission {
       fs.unlinkSync(`${basePath}/${filename}`);
       throw error;
     }
-  }
-
-  async computeChecksum(filePath, algorithm = 'sha256') {
-    return new Promise((resolve, reject) => {
-      const hash = crypto.createHash(algorithm);
-      const stream = fs.createReadStream(filePath);
-  
-      stream.on('data', data => hash.update(data));
-      stream.on('end', () => resolve(hash.digest('hex')));
-      stream.on('error', reject);
-    });
   }
 
   async submitTask(roundNumber) {
