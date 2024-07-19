@@ -21,6 +21,7 @@
     "axios": "^1.7.2",
     "body-parser": "^1.20.2",
     "cross-spawn": "^7.0.3",
+    "crypto": "^1.0.1",
     "dotenv": "^16.3.0",
     "dotenv-webpack": "^8.1.0",
     "nodemon": "^3.1.0",

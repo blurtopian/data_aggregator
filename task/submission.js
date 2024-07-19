@@ -1,8 +1,10 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { namespaceWrapper } = require('@_koii/namespace-wrapper');
 const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
+const { downloadBinanceData } = require('./utils/download')
 
 // Define the URL structure for Binance Vision data
 const BASE_URL = 'https://data.binance.vision/data/spot/daily/klines/';
@@ -12,10 +14,11 @@ const interval = '1m';
 const start = "";
 const end = "";
 const dateYmd = "2024-07-18";
+const expectedChecksum = '392f5627796817dcdf875ca5fe89e3e8f25c01e70f3b9a018852da1d67b354ce';
 
 // Construct the URL and filename
-const url = `${BASE_URL}${symbol}/${interval}/${symbol}-${interval}-${dateYmd}.zip`;
 const filename = `${symbol}-${interval}-${dateYmd}.zip`;
+const url = `${BASE_URL}${symbol}/${interval}/${filename}`;
 
 class Submission {
   constructor() {}
@@ -26,13 +29,15 @@ class Submission {
       console.log(`basePath ${basePath}...`);
       
       console.log(`Downloading data from ${url}...`);
-      let result = await this.downloadBinanceData(url, `${basePath}/${filename}`);
+      await downloadBinanceData(url, `${basePath}/${filename}`);
+      const checksum = await this.computeChecksum(`${basePath}/${filename}`);
       console.log(`Data saved to ${basePath}/${filename}`);
+      console.log(`CHECKSUM ${checksum}`);
 
       // const cid = await this.storeFile(result);
       // await namespaceWrapper.storeSet("cid", cid);
 
-      return 'Done';
+      return checksum;
     } catch (err) {
       console.error('ERROR IN EXECUTING TASK', err);
       return 'ERROR IN EXECUTING TASK' + err;
@@ -59,21 +64,14 @@ class Submission {
     }
   }
 
-  // Function to download data from Binance Vision
-  async downloadBinanceData(url, filename) {
-    const writer = fs.createWriteStream(filename);
-    
-    const response = await axios({
-        url,
-        method: 'GET',
-        responseType: 'stream'
-    });
-
-    response.data.pipe(writer);
-
+  async computeChecksum(filePath, algorithm = 'sha256') {
     return new Promise((resolve, reject) => {
-        writer.on('finish', resolve);
-        writer.on('error', reject);
+      const hash = crypto.createHash(algorithm);
+      const stream = fs.createReadStream(filePath);
+  
+      stream.on('data', data => hash.update(data));
+      stream.on('end', () => resolve(hash.digest('hex')));
+      stream.on('error', reject);
     });
   }
 
