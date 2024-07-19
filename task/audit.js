@@ -21,6 +21,7 @@ class Audit {
   async validateNode(submission_checksum, round) {
     console.log('validateNode::submission_checksum', submission_checksum)
     try {
+      const basePath = await namespaceWrapper.getBasePath();
       await downloadBinanceData(urlChecksum, `${basePath}/${filenameChecksum}`);
       const binanceChecksum = await this.readChecksum(`${basePath}/${filenameChecksum}`);
       console.log('binanceChecksum', binanceChecksum)
