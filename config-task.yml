@@ -1,9 +1,9 @@
 # Name and metadata of your task
-task_name: 'Git Archiver'
+task_name: 'Data Aggregator'
 author: 'East'
-description: 'A simple git task that gets the latest commit hash from a specific repo and uploads the hash to IPFS for later retrieval.'
-repositoryUrl: 'https://github.com/blurtopian/git_archiver' #replace with your own repo url
-imageUrl: 'https://i.ibb.co/rct9M08/output.png'
+description: 'Entry to Koii x Ocean Protocol Hackathon.'
+repositoryUrl: 'https://github.com/blurtopian/data_aggregator.git' #replace with your own repo url
+imageUrl: 'https://i.ibb.co/GV1rXvw/output.png'
 # network value can be DEVELOPMENT , ARWEAVE or IPFS, Recommended IPFS when deploying to testnet as the cli automatically takes care of uploading the executable with the help of web3.js key
 task_executable_network: 'IPFS'
 
@@ -18,7 +18,7 @@ submission_window: 350
 
 # Amounts in KOII
 
-minimum_stake_amount: 0.9
+minimum_stake_amount: 0.1
 
 # total_bounty_amount cannot be grater than bounty_amount_per_round
 # total bounty is not accepted in case of update task

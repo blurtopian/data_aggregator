@@ -1,6 +1,7 @@
-# Git Archiver
+# Data Aggregator
 
-Archives the commit and contributions done on certain git repository.
+Entry to Koii x Ocean Protocol Hackathon
+https://lu.ma/uc7ydqml?tk=AeKCCX
 
 ## How to Setup
 
