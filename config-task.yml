@@ -49,7 +49,7 @@ requirementsTags:
     value: 'GIT_API_TOKEN'
     description: 'Not used. Holder for github API token.'
 
-task_id: 'DzFNGZBkfZ6Fp8c4Vq4n7Ws4GzbN9cxKEXzjd6KyL5E5'
+task_id: ' '
 
 # Provide the description for changes made in new version of task
-migrationDescription: 'Add env variables'
+migrationDescription: ''
