@@ -13,7 +13,7 @@ const dateYmd = "2024-07-18";
 const expectedChecksum = '392f5627796817dcdf875ca5fe89e3e8f25c01e70f3b9a018852da1d67b354ce';
 
 
-const filenameChecksum = `${symbol}-${interval}-${dateYmd}.zip`;
+const filenameChecksum = `${symbol}-${interval}-${dateYmd}.zip.CHECKSUM`;
 const urlChecksum = `${BASE_URL}${symbol}/${interval}/${filenameChecksum}`;
 
 
