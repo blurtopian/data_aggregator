@@ -1,7 +1,8 @@
-const { namespaceWrapper } = require('@_koii/namespace-wrapper');
-const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
+const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const { namespaceWrapper } = require('@_koii/namespace-wrapper');
+const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
 
 // Define the URL structure for Binance Vision data
 const BASE_URL = 'https://data.binance.vision/data/spot/daily/klines/';
@@ -23,8 +24,8 @@ class Submission {
       let result = await this.downloadBinanceData(url, filename);
       console.log(`Data saved to ${filename}`);
 
-      const cid = await this.storeFile(result);
-      await namespaceWrapper.storeSet("cid", cid);
+      // const cid = await this.storeFile(result);
+      // await namespaceWrapper.storeSet("cid", cid);
 
       return 'Done';
     } catch (err) {
