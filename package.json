@@ -15,9 +15,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@_koii/web3.js": "^0.1.11",
-    "@_koii/storage-task-sdk": "^1.2.4",
     "@_koii/namespace-wrapper": "^1.0.1",
+    "@_koii/storage-task-sdk": "^1.2.4",
+    "@_koii/web3.js": "^0.1.11",
     "axios": "^1.7.2",
     "body-parser": "^1.20.2",
     "cross-spawn": "^7.0.3",
