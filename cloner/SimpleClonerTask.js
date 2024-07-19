@@ -44,4 +44,5 @@ class SimpleClonerTask {
   }
 }
 
-module.exports = SimpleClonerTask;
+const simpleClonerTask = new SimpleClonerTask();
+module.exports = { simpleClonerTask };
