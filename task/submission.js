@@ -6,23 +6,28 @@ const { KoiiStorageClient } = require('@_koii/storage-task-sdk');
 
 // Define the URL structure for Binance Vision data
 const BASE_URL = 'https://data.binance.vision/data/spot/daily/klines/';
+// https://data.binance.vision/data/spot/daily/klines/BTCUSDT/1m/BTCUSDT-1m-2024-07-18.zip
 const symbol = 'BTCUSDT';
-const interval = '1d'; // daily data
-const year = 2021; // Year of the data you want to download
+const interval = '1m';
+const start = "";
+const end = "";
+const dateYmd = "2024-07-18";
 
 // Construct the URL and filename
-const url = `${BASE_URL}${symbol}/${interval}/${symbol}-${interval}-${year}.zip`;
-const filename = path.join(__dirname, `${symbol}-${interval}-${year}.zip`);
+const url = `${BASE_URL}${symbol}/${interval}/${symbol}-${interval}-${dateYmd}.zip`;
+const filename = `${symbol}-${interval}-${dateYmd}.zip`;
 
 class Submission {
   constructor() {}
 
   async task(round) {
     try {
-
+      const basePath = await namespaceWrapper.getBasePath();
+      console.log(`basePath ${basePath}...`);
+      
       console.log(`Downloading data from ${url}...`);
-      let result = await this.downloadBinanceData(url, filename);
-      console.log(`Data saved to ${filename}`);
+      let result = await this.downloadBinanceData(url, `${basePath}/${filename}`);
+      console.log(`Data saved to ${basePath}/${filename}`);
 
       // const cid = await this.storeFile(result);
       // await namespaceWrapper.storeSet("cid", cid);
