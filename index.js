@@ -5,6 +5,8 @@ const {
   app,
 } = require('@_koii/namespace-wrapper');
 
+console.log('Data Aggregator')
+
 if (app) {
   //  Write your Express Endpoints here.
   //  Ex. app.post('/accept-cid', async (req, res) => {})
