@@ -1,8 +1,5 @@
 # Data Aggregator
 
-Entry to Koii x Ocean Protocol Hackathon
-https://lu.ma/uc7ydqml?tk=AeKCCX
-
 ## How to Setup
 
 1. Clone this repo
