@@ -1,3 +1,4 @@
+require('dotenv').config;
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
@@ -11,23 +12,26 @@ const BASE_URL = 'https://data.binance.vision/data/spot/daily/klines/';
 // https://data.binance.vision/data/spot/daily/klines/BTCUSDT/1m/BTCUSDT-1m-2024-07-18.zip
 const symbol = 'BTCUSDT';
 const interval = '1m';
-const start = "";
-const end = "";
 const dateYmd = "2024-07-18";
-const expectedChecksum = '392f5627796817dcdf875ca5fe89e3e8f25c01e70f3b9a018852da1d67b354ce';
 
 // Construct the URL and filename
 const filename = `${symbol}-${interval}-${dateYmd}.zip`;
 const url = `${BASE_URL}${symbol}/${interval}/${filename}`;
 
+const TRADING_PAIRS = process.env.TRADING_PAIRS;
+const TRADING_INTERVALS = process.env.TRADING_INTERVALS;
+
 class Submission {
   constructor() {}
 
   async task(round) {
+    console.log('task::round', task);
+
     try {
       const basePath = await namespaceWrapper.getBasePath();
       console.log(`basePath ${basePath}...`);
       
+      const downloadUrls = generateDownloadUrls(TRADING_PAIRS, TRADING_INTERVALS)
       console.log(`Downloading data from ${url}...`);
       await downloadBinanceData(url, `${basePath}/${filename}`);
       const checksum = await computeChecksum(`${basePath}/${filename}`);

@@ -43,11 +43,29 @@ requirementsTags:
   - type: STORAGE
     value: '2 GB'
   - type: TASK_VARIABLE
-    value: 'GIT_REPO'
-    description: 'Link to repo whose issues, pull requests, and commits will be retrieved'
+    value: 'TRADING_PAIRS'
+    description: 'Download trading pairs - BTCUSDT, ​ETHUSDT, etc.'
   - type: TASK_VARIABLE
-    value: 'GIT_API_TOKEN'
-    description: 'Not used. Holder for github API token.'
+    value: 'TRADING_INTERVALS'
+    description: 'Download trading pairs intervals - i.e., 1m,1h,1d, etc.'
+  - type: TASK_VARIABLE
+    value: 'BTCUSDT_PAIR'
+    description: 'Download BTC-USDT trading data'
+  - type: TASK_VARIABLE
+    value: 'BTCUSDT_INTERVALS'
+    description: 'Download BTC-USDT trading data interval - i.e., 1m,1h,1d'
+  - type: TASK_VARIABLE
+    value: '​ETHUSDT_PAIR'
+    description: 'Download BTC-USDT trading data'
+  - type: TASK_VARIABLE
+    value: '​ETHUSDT_INTERVALS'
+    description: 'Download BTC-USDT trading data interval - i.e., 1m,1h,1d'
+  - type: TASK_VARIABLE
+    value: 'ADAUSDT_PAIR'
+    description: 'Download BTC-USDT trading data'
+  - type: TASK_VARIABLE
+    value: 'ADAUSDT_INTERVALS'
+    description: 'Download BTC-USDT trading data interval - i.e., 1m,1h,1d'
 
 task_id: ' '
 
